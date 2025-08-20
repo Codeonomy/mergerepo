@@ -44,7 +44,6 @@ jobs:
 
       - id: autotagging
         name: Extract Docker metadata
-        id: autotagging
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REPO_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
