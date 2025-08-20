@@ -41,7 +41,7 @@ jobs:
         with:
           registry: ${REPO_LOCATION}-docker.pkg.dev
           username: oauth2accesstoken
-          password: ${{ needs.steps.auth.outputs.access_token }}
+          #password: ${{ needs.steps.auth.outputs.access_token }}
 
       - id: autotagging
         name: Extract Docker metadata
