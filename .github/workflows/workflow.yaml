@@ -33,7 +33,7 @@ jobs:
           project_id: ${{ env.PROJECT_ID }}     
           workload_identity_provider: 'projects/841824336257/locations/global/workloadIdentityPools/github--com/providers/github-com-oidc'
           service_account: gh-service-account@lofty-optics-469609-m3.iam.gserviceaccount.com
-          token_format: "auth_token"
+          token_format: "access_token"
 
       - id: login
         name: Login to GAR
