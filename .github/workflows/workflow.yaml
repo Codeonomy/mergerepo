@@ -50,13 +50,13 @@ jobs:
       #   with:
       #     images: ${{ env.REPO_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
 
-      - id: autotagging
-        uses: SOLIDSoftworks/semver-tags@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          tag-prefix: 'v'
-          default-version: '1.0.0'
-          #prerelease: 'alpha'
+      # - id: autotagging
+      #   uses: SOLIDSoftworks/semver-tags@v1
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+      #     tag-prefix: 'v'
+      #     default-version: '1.0.0'
+      #     #prerelease: 'alpha'
 
 
       - name: Build and push Docker image
@@ -64,7 +64,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.autotagging.outputs.semantic-version }} #${{ steps.autotagging.outputs.tags }}
+          tags: v1.0.0 #${{ steps.autotagging.outputs.tags }}
           #labels:                            #${{ steps.autotagging.outputs.labels }}
           #cache-from: type=gha
           #cache-to: type=gha,mode=max
