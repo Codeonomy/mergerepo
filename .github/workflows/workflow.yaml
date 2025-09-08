@@ -44,19 +44,28 @@ jobs:
           password: ${{ steps.auth.outputs.auth_token }}
           #password: ${{ steps.auth.outputs.access_token }}
 
+      # - id: autotagging
+      #   name: Extract Docker metadata
+      #   uses: docker/metadata-action@v5
+      #   with:
+      #     images: ${{ env.REPO_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
+
       - id: autotagging
-        name: Extract Docker metadata
-        uses: docker/metadata-action@v5
+        uses: SOLIDSoftworks/semver-tags@v1
         with:
-          images: ${{ env.REPO_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.AR_REPO }}/${{ env.IMAGE_NAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          tag-prefix: 'v'
+          default-version: '1.0.0'
+          #prerelease: 'alpha'
+
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.autotagging.outputs.tags }}
-          labels: ${{ steps.autotagging.outputs.labels }}
+          tags: ${{ steps.autotagging.outputs.semantic-version }} #${{ steps.autotagging.outputs.tags }}
+          #labels:                            #${{ steps.autotagging.outputs.labels }}
           #cache-from: type=gha
           #cache-to: type=gha,mode=max
 
